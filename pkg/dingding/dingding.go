@@ -29,11 +29,12 @@ func BuildTextContext(context string) string {
 	postContext["text"] = text
 	postContext["at"] = at
 	data, _ := json.Marshal(postContext)
+	fmt.Println("11:" + string(data))
 	return string(data)
 }
 
 func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCode int, err error) {
-	fmt.Printf(requestBody)
+	fmt.Println(requestBody)
 	client := &http.Client{
 		Timeout: 30 * time.Second,
 	}
