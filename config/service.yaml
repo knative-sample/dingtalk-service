@@ -7,4 +7,4 @@ spec:
   template:
     spec:
       containers:
-      - image: registry.cn-beijing.aliyuncs.com/knative-sample/dingtalk-service-receive:1.0
+      - image: registry.cn-hangzhou.aliyuncs.com/knative-sample/dingtalk-service:1.0
