@@ -29,12 +29,10 @@ func BuildTextContext(context string) string {
 	postContext["text"] = text
 	postContext["at"] = at
 	data, _ := json.Marshal(postContext)
-	fmt.Println("11:" + string(data))
 	return string(data)
 }
 
 func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCode int, err error) {
-	fmt.Println(requestBody)
 	client := &http.Client{
 		Timeout: 30 * time.Second,
 	}
@@ -43,10 +41,8 @@ func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCod
 		fmt.Printf("http send request url %s fails -- %v ", url, err)
 		return
 	}
-	fmt.Println("methd: " + method)
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
-	fmt.Println("methd: " + req.Host)
 	if err != nil {
 		fmt.Printf("http send request url %s fails -- %v ", url, err)
 		return
@@ -56,7 +52,6 @@ func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCod
 	body, err = ioutil.ReadAll(resp.Body)
 
 	statusCode = resp.StatusCode
-	fmt.Println(statusCode)
 	//status code not in [200, 300) fail
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 		fmt.Printf("response status code %d, error messge: %s", resp.StatusCode, string(body))

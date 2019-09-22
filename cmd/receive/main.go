@@ -60,9 +60,10 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 		}
 	}
 	json.Unmarshal(data, payload)
-	fmt.Println(payload.Action)
-	fmt.Println(dingding.DINGDING_FOR_EXCEPTION_URL)
-	dingding.SendDingDingReqest(dingding.DINGDING_FOR_EXCEPTION_URL, http.MethodPost, dingding.BuildTextContext("test"))
+	if payload.Action == "opened"{
+		dingding.SendDingDingReqest(dingding.DINGDING_FOR_EXCEPTION_URL, http.MethodPost, dingding.BuildTextContext("user: " + payload.Sender.Login + " >> title: " + payload.Issue.Title))
+	}
+
 
 }
 
