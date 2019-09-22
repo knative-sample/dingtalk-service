@@ -38,12 +38,16 @@ func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCod
 	client := &http.Client{
 		Timeout: 30 * time.Second,
 	}
-	req, _ := http.NewRequest(method, url, strings.NewReader(requestBody))
+	req, err := http.NewRequest(method, url, strings.NewReader(requestBody))
+	if err != nil {
+		fmt.Printf("http send request url %s fails -- %v ", url, err)
+		return
+	}
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
 
 	if err != nil {
-		fmt.Errorf("http send request url %s fails -- %v ", url, err)
+		fmt.Printf("http send request url %s fails -- %v ", url, err)
 		return
 	}
 
@@ -54,12 +58,12 @@ func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCod
 
 	//status code not in [200, 300) fail
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		err = fmt.Errorf("response status code %d, error messge: %s", resp.StatusCode, string(body))
+		fmt.Printf("response status code %d, error messge: %s", resp.StatusCode, string(body))
 		return
 	}
 
 	if err != nil {
-		fmt.Errorf("read the result of get url %s fails, response status code %d -- %v", url, resp.StatusCode, err)
+		fmt.Printf("read the result of get url %s fails, response status code %d -- %v", url, resp.StatusCode, err)
 	}
 
 	return
