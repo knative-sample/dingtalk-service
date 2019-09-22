@@ -1,0 +1,10 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: dingtalk-service-receive
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: registry.cn-beijing.aliyuncs.com/knative-sample/dingtalk-service-receive:1.0
