@@ -11,7 +11,7 @@ COPY vendor/ vendor/
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o dingtalk-service-receive github.com/knative-sample/dingtalk-service/cmd/receive
 
 # Copy the dingtalk-service-receive into a thin image
-FROM alpine:3.7
+FROM registry.cn-beijing.aliyuncs.com/knative-sample/centos:7.6.1810
 WORKDIR /
 COPY --from=builder /go/src/github.com/knative-sample/dingtalk-service/dingtalk-service-receive app/
 ENTRYPOINT ["/app/dingtalk-service-receive"]
