@@ -62,7 +62,7 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 	json.Unmarshal(data, payload)
 	fmt.Println(payload.Action)
 	fmt.Println(payload.Issue.Title)
-	go dingding.SendDingDingReqest(dingding.DINGDING_FOR_EXCEPTION_URL, http.MethodPost, dingding.BuildTextContext("test"))
+	dingding.SendDingDingReqest(dingding.DINGDING_FOR_EXCEPTION_URL, http.MethodPost, dingding.BuildTextContext("test"))
 
 
 }
