@@ -33,6 +33,7 @@ func BuildTextContext(context string) string {
 }
 
 func SendDingDingReqest(url, method, requestBody string) (body []byte, statusCode int, err error) {
+	fmt.Printf(requestBody)
 	client := &http.Client{
 		Timeout: 30 * time.Second,
 	}
