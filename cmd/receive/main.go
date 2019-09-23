@@ -74,7 +74,7 @@ var (
 	url string
 )
 func init() {
-	flag.StringVar(&url, "dingtalkurl", 5, "dingtalk url.")
+	flag.StringVar(&url, "dingtalkurl", "", "dingtalk url.")
 }
 func main() {
 	flag.Parse()
