@@ -9,8 +9,6 @@ import (
 	"time"
 )
 
-//异常信息监控群
-const DINGDING_FOR_EXCEPTION_URL = "https://oapi.dingtalk.com/robot/send?access_token=91b4af274b59a5f913265269f5bdc8eae2c31a4848814fd901d2e8ce13fe8250"
 
 
 func BuildTextContext(context string) string {
