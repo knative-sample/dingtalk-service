@@ -61,7 +61,7 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 	}
 	json.Unmarshal(data, payload)
 	if payload.Action == "opened"{
-		dingding.SendDingDingReqest(dingding.DINGDING_FOR_EXCEPTION_URL, http.MethodPost, dingding.BuildTextContext("user: " + payload.Sender.Login + " >> title: " + payload.Issue.Title))
+		dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext("user: " + payload.Sender.Login + " >> title: " + payload.Issue.Title))
 	}
 
 
@@ -70,8 +70,12 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(w, "ok")
 }
-
-
+var (
+	url string
+)
+func init() {
+	flag.StringVar(&url, "dingtalkurl", 5, "dingtalk url.")
+}
 func main() {
 	flag.Parse()
 

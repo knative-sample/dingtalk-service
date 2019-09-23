@@ -9,14 +9,9 @@ import (
 	"time"
 )
 
-//sigma agility群机器人url
-const DINGDING_OPENAPI_URL = "https://oapi.dingtalk.com/robot/send?access_token=189a15a27d538787af15575fca02d9a4108597ec8a505dcd92d3c3696501134a"
-
 //异常信息监控群
-const DINGDING_FOR_EXCEPTION_URL = "https://oapi.dingtalk.com/robot/send?access_token=38b52342dee9149d64a1b036d7ef3b8b9dcb9d518a1d33dc8741d514cc530bb4"
+const DINGDING_FOR_EXCEPTION_URL = "https://oapi.dingtalk.com/robot/send?access_token=91b4af274b59a5f913265269f5bdc8eae2c31a4848814fd901d2e8ce13fe8250"
 
-//测试群url
-//const DINGDING_OPENAPI_URL = "https://oapi.dingtalk.com/robot/send?access_token=08b69305f92c298e77c7e0b727bf4b697a8a9fcf72f92aefff2658cc4a96cbf5"
 
 func BuildTextContext(context string) string {
 	postContext := make(map[string]interface{})
