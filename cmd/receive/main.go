@@ -8,11 +8,11 @@ import (
 	"net/http"
 
 	"os"
-	gh "gopkg.in/go-playground/webhooks.v5/github"
 	cloudevents "github.com/cloudevents/sdk-go"
 	"github.com/knative-sample/dingtalk-service/pkg/dingding"
 	"github.com/knative-sample/dingtalk-service/pkg/kncloudevents"
 	"encoding/json"
+	"strings"
 )
 
 /*
@@ -41,12 +41,15 @@ Data,
     "label":""
   }
 */
-
+type Info struct {
+	Title string `json:"title"`
+	Content string `json:"content"`
+}
 func dispatch(ctx context.Context, event cloudevents.Event) {
 	//tctx := cloudevents.HTTPTransportContextFrom(ctx)
 	//h, _ := json.Marshal(tctx)
 	fmt.Printf(event.String())
-	payload := &gh.IssuesPayload{}
+	payload := &Info{}
 	if event.Data == nil {
 		fmt.Printf("cloudevents.Event\n  Type:%s\n  Data is empty", event.Context.GetType())
 	}
@@ -60,9 +63,11 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 		}
 	}
 	json.Unmarshal(data, payload)
-	if payload.Action == "opened"{
-		dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext("user: " + payload.Sender.Login + " >> title: " + payload.Issue.Title))
+	ms := make([]string, 0)
+	if mobiles != ""{
+		ms = strings.Split(mobiles, ",")
 	}
+	dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext(payload.Title, payload.Content, ms));
 
 
 }
@@ -72,9 +77,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 var (
 	url string
+	mobiles string
 )
 func init() {
 	flag.StringVar(&url, "dingtalkurl", "", "dingtalk url.")
+	flag.StringVar(&url, "mobiles", "", "mobiles.")
 }
 func main() {
 	flag.Parse()

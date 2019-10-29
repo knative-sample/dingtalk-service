@@ -11,15 +11,16 @@ import (
 
 
 
-func BuildTextContext(context string) string {
+func BuildTextContext(title, context string, mobiles []string) string {
 	postContext := make(map[string]interface{})
-	postContext["msgtype"] = "text"
+	postContext["msgtype"] = "markdown"
 	text := make(map[string]string)
-	text["content"] = context
+	text["title"] = title
+	text["text"] = context
 	at := make(map[string]interface{})
-	at["atMobiles"] = make([]string, 0)
+	at["atMobiles"] = mobiles
 	at["isAtAll"] = false
-	postContext["text"] = text
+	postContext["markdown"] = text
 	postContext["at"] = at
 	data, _ := json.Marshal(postContext)
 	return string(data)
